@@ -1,8 +1,15 @@
 package com.detroitlabs.restcontroller;
 
 import com.detroitlabs.model.*;
+import com.detroitlabs.repository.AutomotiveRepository;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by paul on 2016/04/13.
@@ -10,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/automotive")
 public class AutomotiveController {
+
+    @Autowired
+    AutomotiveRepository repo;
 
     @RequestMapping(method = RequestMethod.GET, path="/getoilchangemiles", produces = "application/json")
     @ApiOperation(value = "getoilchangemiles", nickname = "getOilChangeMiles")
@@ -41,8 +51,10 @@ public class AutomotiveController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Failure")
     })
-    public CarLocation getCarLocation(@RequestParam(value="userid") String userId) {
-
+    public List<CarLocation> getCarLocation(@RequestParam(value="userid") String userId, @RequestParam(value="currloc") double[] currLoc) {
+        //Point point = new Point(currLoc[0], currLoc[1]);
+        //List<CarLocation> locations = repo.findByPositionNear(point , new Distance(70, Metrics.MILES) );
+        //return locations;
         return null;
     }
 
